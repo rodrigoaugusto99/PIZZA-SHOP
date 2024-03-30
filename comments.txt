@@ -1,0 +1,9 @@
+layouts - tanto a parte de auth quanto a de app vao ter componentes em comum,
+por ex, cadastro e login na parte de auth, vao ter partes em comuns. e no app,
+todas as paginas vao ter cabecalho, rodape, etc.
+
+outlet eh o componente p especfiicar aonde que vai entrar o que eh
+especifico de cada pagina. ou seja, o q nao eh comum entre as paginas.
+
+nas rotas, em cada rota agora fica no element o layout referente. como 
+children, vamos colocar as rotas que usarao aquele layout, que eh o outlet
