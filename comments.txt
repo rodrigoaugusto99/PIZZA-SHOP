@@ -64,3 +64,8 @@ eh false quando deu erro ou sucesso, quando nao ta carregnad, quando usuario n c
 
 ai usa pra boolear o disabled do botao
 <Button disabled={isSubmitting} className="w-full" type="submit">
+
+
+-TOAST da lib sonner
+ -facilita msgs de sucesso e erro pro usuario.
+ - podemos colocar mais um parametro pra estilizar mais, com o "action" por exemplo
