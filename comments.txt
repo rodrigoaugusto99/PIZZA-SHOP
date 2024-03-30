@@ -1,3 +1,57 @@
+npm create vite@latest NA PASTA QUE VAI CRIAR A PASTA DO PROJETO
+npm i
+remove read.me, icon no html, eslint, eslint nas dependencias, assets -> npm i p apagar tudo
+remove css, colcoa export default pra exportacao nomeada
+
+git init - ja deixa tudo verdinho dizendo que vai mudar quando commitar la no repo, 
+e ja fica tbm apagadinho os arquivos que sao do gitignore
+
+- shadcn ui
+componentes padronizados que foram pegos do radix por exemplo, que eh uma biblioteca com componentes puros, sem estilziacao
+
+fazer esses comandos:
+
+[Vite - shadcn/ui](https://ui.shadcn.com/docs/installation/vite)
+
+pra importar componentes, tem que importar um por um, a pasta componentes vem vazia.
+
+
+- eslint - 
+instalando eslint e o eslint da rocketseat
+npm i eslint @rocketseat/eslint-config -D
+.eslintrc.json
+
+{
+    "extends": ["@rocketseat/eslint-config/react"],
+}
+
+instalar prettier: [tailwindlabs/prettier-plugin-tailwindcss: A Prettier plugin for Tailwind CSS that 
+automatically sorts classes based on our recommended class order. (github.com)](https://github.com/tailwindlabs/prettier-plugin-tailwindcss)
+
+npm i -D prettier nao precisa pois ja tem no rocketseat eslint
+
+npm i -D prettier-plugin-tailwindcss
+
+criar arquivo prettier.config.ts
+
+reload window vscode
+
+se tiver que usar o module.exports nesse arquivo prettier pq ele ainda nao suport 
+aquele exports default, entao trocar a extensao do arquivo pra cjs
+
+plugin eslint-plugin-simple-import-sort: [lydell/eslint-plugin-simple-import-sort: 
+Easy autofixable import sorting. (github.com)](https://github.com/lydell/eslint-plugin-simple-import-sort)
+
+
+---
+instalando react router dom
+n estamos usando next, remix, astro, entao n temos estrutura pronta de roteamento. e 
+como o react eh uma biblioteca de construcao de interface, ele nao tras consigo 
+uma funcionaidade de rotas, paginas. Basicamente eh tudo uma unica pagina so
+
+[Tutorial v6.22.3 | React Router](https://reactrouter.com/en/main/start/tutorial)
+
+----------------------------------------------------------------
 layouts - tanto a parte de auth quanto a de app vao ter componentes em comum,
 por ex, cadastro e login na parte de auth, vao ter partes em comuns. e no app,
 todas as paginas vao ter cabecalho, rodape, etc.
