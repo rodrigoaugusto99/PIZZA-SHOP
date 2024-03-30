@@ -183,3 +183,40 @@ toast.success('Restaurante cadastrado com sucesso!', {
           onClick: () => navigate('/sign-in'),
         },
       })
+
+
+----layout do app com cabecalho
+app layouts
+flex min h screen p ocupar no minimo a altura da tela toda
+
+flex flex-1 - p ocupar a altura da tela toda tirando a altura do cabecalho
+
+header
+border-b - borda de separacao c cabecalho
+
+npx shadcn-ui@latest add separator
+pra usar o Separator - uma linha vertical ou horizontal
+
+lg:space-x-6 - em caso de telas maiores
+
+
+criar componente de links, ate pq vms querer botar estilizacao especifica e
+um compoortamento, de que o icone ativo, fique em negrito, diferente do outro
+
+pra poder extender as propriedades de um link do react router dom
+export type NavLinkProps = LinkProps
+
+deixar aquele link em negrito p sinalizar que esta na pagina dele:
+useLocation do react-router-dom
+const { pathname } = useLocation()
+
+se o pathname for igual a rota atual:
+data-current={pathname === props.to}
+entao retorna true.
+
+se for true, estilize:
+data-[current=true]:text-foreground
+
+
+
+
