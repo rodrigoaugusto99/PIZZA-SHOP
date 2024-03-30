@@ -218,5 +218,13 @@ se for true, estilize:
 data-[current=true]:text-foreground
 
 
+---dark mode
+colar o codigo pronto pro vite la no shadcnui
+codigo do botao tbm
+
+npx shadcn-ui@latest add dropdown-menu
+
+
+
 
 
