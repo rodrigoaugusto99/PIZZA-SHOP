@@ -69,3 +69,63 @@ ai usa pra boolear o disabled do botao
 -TOAST da lib sonner
  -facilita msgs de sucesso e erro pro usuario.
  - podemos colocar mais um parametro pra estilizar mais, com o "action" por exemplo
+
+
+- pagina de cadastro
+
+signUp eh parecido com a signIn
+- selecionar signIn, ctrl + shift + p, selecionar "replace" escreve signUp,
+- clicar para preservar case, ou seja, o signIn vai ficar signUp e SignIn fica SignUp
+
+nas rotas de Auth, colocar mais um path no children, dessa vez para o signUp
+        {
+          path: '/sign-un',
+          element: <SignUp />,
+        },
+
+
+- na div do outlet no authLayout, vamos colocar relative, e entao no SignUp, vamos poder
+colocar um link usando position absolute
+
+no SignUp - botao pra ir pro SignIn
+<Button variant="ghost" asChild className="absolute right-8 top-8">
+          <Link to="/sign-in">Fazer login</Link>
+</Button>
+
+e no SignIn, botao p ir pro SignUp 
+<Button variant="ghost" asChild className="absolute right-8 top-8">
+          <Link to="/sign-up">Novo estabelecimento</Link>
+</Button>
+esse link funciona como uma ancora, mas n faz reload total da pagina
+
+---criar mais campos pra esse SignUp ---
+
+-alterar a validacao
+const signUpForm = z.object({
+  restaurantName: z.string(),
+  managerName: z.string(),
+  phone: z.string(),
+  email: z.string().email(),
+})
+
+-criar mais input com labels e registers
+<div className="space-y-2">
+    <Label htmlFor="xxx">xxxx</Label>
+    <Input id="xxx" type="xxx" {...register('xxx')} />
+</div>
+
+-toast alterado para sucesso no caso de restaraunte cadastro
+-no action, podemos fazer um botao "login", que ao clicado, redireciona
+para a pagina de login(pois o usuario ja tem conta agora)
+pra isso, vamos usar useNavigate
+
+
+import { Link, useNavigate } from 'react-router-dom'
+const navigate = useNavigate()
+
+toast.success('Restaurante cadastrado com sucesso!', {
+        action: {
+          label: 'Login',
+          onClick: () => navigate('/sign-in'),
+        },
+      })
