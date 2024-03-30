@@ -7,3 +7,13 @@ especifico de cada pagina. ou seja, o q nao eh comum entre as paginas.
 
 nas rotas, em cada rota agora fica no element o layout referente. como 
 children, vamos colocar as rotas que usarao aquele layout, que eh o outlet
+
+react-helmet-async para colocar titulos dinamicos em cada pagina
+(Login | pizza.shop) - Login eh dinamico e pizza.shop eh estatico
+
+- login page
+-layout com a parte da esquerda
+pagina sign-in
+ - title do helmet pega a parte %2 q fizemos no layout
+ - label e input sao do shadcn-ui(px shadcn-ui@latest add input label)
+ - troca de tema - https://ui.shadcn.com/themes - copiar o codigo e colar em global.css
