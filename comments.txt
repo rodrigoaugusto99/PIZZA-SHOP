@@ -17,3 +17,50 @@ pagina sign-in
  - title do helmet pega a parte %2 q fizemos no layout
  - label e input sao do shadcn-ui(px shadcn-ui@latest add input label)
  - troca de tema - https://ui.shadcn.com/themes - copiar o codigo e colar em global.css
+
+
+- react hook form
+npm i react-hook-form zod @hookform/resolvers
+zod p validacao e transformacao de dados
+hookform resolver -integracao do react-hook-form com as libs de validacao(zod no caso)
+
+-import useForm
+- const { register, handleSubmit} = useForm() 
+  -register p registrar campso no formulario - jogar no input
+  -handleSubmit - lidar com submit do formulario(ja lida com a parte de propagacao,
+  n precisa de prevent default)
+  high order funciton(pattern) - vamos usar o handlesubmit do useForm p chamar a funcao 
+  handleSignIn()
+- usar zod pra validacao 
+   -z.object - quando usuario fizer submit, vai mandar o email atraves do register:
+
+        <Input id="email" type="email" {...register('email')} />
+
+   para o handleSignIn atraves do handleSubmit:
+
+        <form className="space-y-4" onSubmit={handleSubmit(handleSignIn)}>
+    
+    essa funcao recebe um email, que eh uma string, entao vamos validar:
+
+        const signInForm = z.object({
+            email: z.string().email(),
+        })
+
+    vamos tambem tipar
+
+        type SignInForm = z.infer<typeof signInForm>
+
+    e agora, o handleSignIn vai receber esse signInForm(que no momento tem so um email que eh string)
+
+        async function handleSignIn(data: SignInForm)
+
+    data vai ficar no formato - { email: 'rodrigo@outlook.com'}
+
+
+-formState do useForm:
+    formState: { isSubmitting },
+esse isSubmitting eh true esta carregnado, em estado de submit
+eh false quando deu erro ou sucesso, quando nao ta carregnad, quando usuario n clicou
+
+ai usa pra boolear o disabled do botao
+<Button disabled={isSubmitting} className="w-full" type="submit">
