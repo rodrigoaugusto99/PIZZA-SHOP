@@ -366,3 +366,39 @@ const { mutateAsync: authenticate } = useMutation({
   pelas apis do browser, pelo document. (n da p fzr document.cookie). Essse cookie
   so ta visivel no backend da aplicacao.
   Isso eh seguro pois extensoes instalada sno navegador nao sejam acessiveis a esse cookie.
+
+
+----------------------------------------------------------------
+CADASTRO DE Restaurante
+
+-> fazer a funcaozinha de axios la na pasta api.
+
+-> no signUp, pegar mutateAsync do useMutation novamente para chamar 
+o registerRestaurant que fizemos la no register-restaurants.ts na pasta api.
+obviamente mandando os valores do form , que foram especificados na interface feita
+pelo zod.
+
+-> ao criarmos, fazer a requisicao, e dar sucesso, estamos mandando ali o toast
+com um botao para navegacao para o /sing-in
+
+onClick: () => navigate('/sign-in'),
+
+vamos mandar pra esse sign-in, um query parameter.
+
+onClick: () => navigate(`/sign-in?email=${data.email}`),
+
+mandando exatamente o mesmo email que ele acabou de se cadastrar, que ainda esta ali
+no data: SignUpForm do handleSignUp.
+
+e VAMOS PEGAR ESSE EMAIL la no sign-in usando useSearchParams do react-router-dom
+
+const [searchParams] = useSearchParams()
+eh como se fosse um useState, a primeira posicao do array retorna os search parameters
+da url, e na segunda posicao, uma funcao p atualizar esses parametros.
+
+vamos acessar apenas o primeiro, entao vamos desestruturar: [searchParams]
+
+e no useForm, vamos colocar um defaultValues e vamos setar para que NO campo email,
+caso nao seja nulo o searchParams.get('email'), vamos ja colocar esse defaultvalue para
+quando o usuario for p essa pagina depois de fazer o cadastro (sign-up), ja esteja ali
+escrito o email que ele acabou de criar.
