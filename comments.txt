@@ -253,12 +253,42 @@ bun i
 bun migrate (RESEND_API_KEY=".") 
 
 
+------------------------------------------
+
+vamos fazer o api client, o cliente que vamos usar no frontend pra se comunicar com o backend
+
+AXIOS
 
 
+axios.ts - criar a api, mas a url nao pode ser estatica
+
+.env.local - VITE_API_URL=""
+variavel ambiente tem que comecar com VITE_ no vite
 
 
+no axios, a baseURL: ficaria import.meta.env...
+mas dessa forma, nao temos validacao das variaveis de ambiuente
+
+-> criar um env.ts no src
+faz validacao com zod.
+
+agora, no axios, colocar 
+baseURL: env.VITE_API_URL,
+
+dessa forma, o parse vai validar que aquele meta.en tem a mesma estrutura
+daquele schema que fizemos
 
 
+REACT-QUERY
+- hooks pra facilitar requisicoes entre front e back
+- ferramenta fantastica
 
+-> criar react-query.ts p exportar o client
 
+-> jogar esse client no app.tsx, antes das rotas
+(antes das rotas pois provavelmente n usaremos em outros lugares)
+passando aquele queryClient que fizemos no react-query.ts
 
+<QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+</QueryClientProvider>
