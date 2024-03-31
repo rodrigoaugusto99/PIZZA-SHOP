@@ -224,6 +224,40 @@ codigo do botao tbm
 
 npx shadcn-ui@latest add dropdown-menu
 
+-------------------------------------------------
+
+
+usando a api - bun - Windows Subsystem for Linux (WSL)
+https://github.com/rocketseat-education/pizzashop-api
+https://learn.microsoft.com/en-us/windows/wsl/install
+https://bun.sh/docs/installation
+https://learn.microsoft.com/en-us/windows/wsl/tutorials/wsl-vscode
+
+
+wsl --install
+wsl --install -d Ubuntu
+
+instalando bun 
+curl -fsSL https://bun.sh/install | bash 
+
+pra entrar no terminal referente a esse wsl, digitar wsl no terminal
+
+ao clonar a api, dar um code . com o wsl ^ligado^
+
+https://educoutinho.com.br/windows/instalando-docker-no-wsl/
+
+instalado docker no wsl, rodar o docker compose up -d na api do pizzashop
+-d p rodar em modo detached, nao fica rodando no terminal pra precisar manter o terminal aberto
+
+bun i 
+bun migrate (RESEND_API_KEY=".") 
+
+
+
+
+
+
+
 
 
 
