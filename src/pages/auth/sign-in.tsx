@@ -7,6 +7,8 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Link } from 'react-router-dom'
+import { useMutation } from '@tanstack/react-query'
+import { signIn } from '@/api/sign-in'
 
 const signInForm = z.object({
   email: z.string().email(),
@@ -21,9 +23,13 @@ export function SignIn() {
     formState: { isSubmitting },
   } = useForm<SignInForm>()
 
+  const { mutateAsync: authenticate } = useMutation({
+    mutationFn: signIn,
+  })
+
   async function handleSignIn(data: SignInForm) {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000))
+      await authenticate({ email: data.email })
 
       toast.success('Enviamos um link de autenticação para seu e-mail.', {
         action: {
@@ -34,6 +40,7 @@ export function SignIn() {
         },
       })
     } catch (error) {
+      console.log(error)
       toast.error('Credenciais inválidas.')
     }
   }

@@ -292,3 +292,77 @@ passando aquele queryClient que fizemos no react-query.ts
 <QueryClientProvider client={queryClient}>
           <RouterProvider router={router} />
 </QueryClientProvider>
+
+
+----------------------------------------------------------------
+
+AUTENTICACAO
+no sign-in, no processo de login, estamos apenas fazendo um delay e dps
+mandando um toast de success.
+-vms manter o maximo possivel das comunicacaos feitas entre front e 
+back tipadas, isso permite que saibemos exatamente qausi sao os dados 
+retornados de tal requisicao. 
+Vamos fazer manualmente, apesar de ter ferramentas que fazem isso de forma
+automatizada, como trpc ou graphql.
+
+fazer uma pasta API no src, fazer um arquivo pra cada rota, por ex:
+sign-in.ts com a funcao que esta encapsulando o axios e com tipagem
+APENAS o tipo de entrada ( email), pois no caso da rota authenticate, nao
+ha retorno (saida)
+
+
+ao fazer signIn no sign-in.ts com a rota authenticate, 
+
+reactquery tem o useMutation, usaremos sempre que fizermos uma mutacao,
+que eh qualquer acao que nao seja de listagem, ou de retorno.
+
+se estamos criando algo, todo post, put, delete, eh uma mutation.
+um get eh uma query.
+
+esse useMutation nos da acesso a varias funcionalidades,
+retry, networkdMode, onError, onSuccess.
+
+o useMutation tbm retorna varias informacoes 
+
+const { mutateAsync: authenticate } = useMutation({
+    mutationFn: signIn,
+  })
+
+  por exemplo, esse mutateSync, que renomeamos para authenticate.
+  tbm podemos saber quando o usuario chamou essa requisicao,
+  qual o status, isSuccess, isError, isIdle, isPending, isPause, etc.
+
+  o mutationAsync vamos usar para chamamr a funcao signIn.
+  mutationAsync eh uma funcao. chamando esse mutationAsync, vamos
+  disparar aquela funcao no mutationFn, que eh a signIn.
+
+  await mutationAsync({ email: data.email })
+  como renomeamos,:
+  await authenticate({ email: data.email })
+  renomeamos para authenticate pois podemos ter varias mutations no mesmo arquivo.
+
+  Agora podemos fazer nosso primeiro teste de integracao com a API.
+  primeiro integramos o metodo de autenticacao, da rota authenticate com axios.
+
+  ao colocar o email que ta cadastrado la no backend ao rodar o bun seed 
+  la no painel de sign-in do front end, ao clicarmos, vai aparecer o toast
+  de sucesso.
+
+  no browser, inspecionar, networkd(rede), podemos filtrar para apenas "Fetch/XHR",
+  pra visualizar apenas as requisicoes ao backend
+
+  aparece la que foi disparado o authenticate, podemos clicar e ver as
+  informacoes daquela requisicao, o cabecalho, o payload,repsonse, etc.
+
+  no backend ta configurado pra dar apenas um console.log no link que seria 
+  mandado para o email do usuario, para, ao clicar nesse link, entrar no site 
+  de forma logada, o tal do magic link, passwordless. 
+
+  Quando entra por esse link, seremos autenticados e redirecionados de volta pro
+  frontend.
+  A diferenca eh que nesse front-end, ha um cookie salvo no navegador, JWT,
+  que foi salvo la pelo backend.
+  o backend salvou esse cookie como httpOnly, que faz com que esse cookie nao seja acessivel
+  pelas apis do browser, pelo document. (n da p fzr document.cookie). Essse cookie
+  so ta visivel no backend da aplicacao.
+  Isso eh seguro pois extensoes instalada sno navegador nao sejam acessiveis a esse cookie.
