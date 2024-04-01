@@ -457,3 +457,17 @@ dessa forma, os cookies do frontend sao enviados ao backend automaticamente
 -la no botaozinho queremos o nome do restaurante:
 
 novamente, faz o arquivo na api com a rota, faz a interface.
+
+hack para ter delay nas requisicoes:
+- var ambiente true no env.local
+- validacao no env.ts
+- funcao no axios.ts de adicionar delay ao interceptar cada req.
+
+
+loading- pegar isLoading de cada useQuery.
+ternario padrao com skeleton (chimer)
+{isLoadingManagedRestaurant ? (
+  <Skeleton className="h-4 w-40" />
+) : (
+  managedRestaurant?.name
+)}
