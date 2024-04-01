@@ -402,3 +402,58 @@ e no useForm, vamos colocar um defaultValues e vamos setar para que NO campo ema
 caso nao seja nulo o searchParams.get('email'), vamos ja colocar esse defaultvalue para
 quando o usuario for p essa pagina depois de fazer o cadastro (sign-up), ja esteja ali
 escrito o email que ele acabou de criar.
+
+
+
+------------------------------------------------------
+perfil no cabecalho
+
+eh no header -> AccountMenu
+
+-criar na api - get-profile.ts
+com a funcao que vms usar p buscar os dados
+
+export async function getProfile() {
+  const response = await api.get('/me')
+
+  return response.data
+}
+
+vamos tipar as entradas, entao vamos la no arquivo backend, procurar
+o get-profile.ts e passar o mouse me cima p saber qual eh o tipo de
+retorno de user
+
+ai faz a interface e o generics <>, que eh exatamente o que aquele
+.data vai retornar
+
+
+-vamos pegar os dados no AccountMenu.
+
+ao inves de usar useMutation, usaremos useQuery
+
+const { data: profile } = useQuery({
+    queryKey: ['profile'],
+    queryFn: getProfile,
+  })
+
+  getProfile eh aquela funcao q fizemos la com axios agora pouco
+  queryKey - profile - se em outro lugar da aplicacao eu fizer requisicao 
+  que tem a ver com profile(user), quando eu passo esse dado, o react-query
+  ve se ja foi feito uma requisicao anteriormente e usa os dados do  cache
+
+  agora podemos usar o profile(data) ao longo do componente.
+
+  o cookie do browser precisa ser enviado ao backend, o token ne
+entao: 
+export const api = axios.create({
+  baseURL: env.VITE_API_URL,
+  //adicioonar essa linha
+  withCredentials: true,
+})
+
+dessa forma, os cookies do frontend sao enviados ao backend automaticamente
+
+
+-la no botaozinho queremos o nome do restaurante:
+
+novamente, faz o arquivo na api com a rota, faz a interface.
