@@ -527,3 +527,35 @@ que sao oobsoletas, como por exemplo, numero de pedidos do dia.
 ou seja, com o infinity, nao vai fazer esse carregamento nunca, pois
 o nome do restaurante nao vai ser atualizado com frequencia, e quando for,
 vai ser pelo modal, de forma manual do usuario.
+
+---------------------------------------
+atualizando perfil com http state
+
+feature incrivel do react-query, alterar o cache de uma requisicao ja feita.\
+
+no useMutation, podemos, alem do mutationFn, tbm pegar o onSuccess, que recebemos
+data, que sao os dados retornados(nessse n tem, entao pdoemos botar underline),
+no variable, podemos pegar os dados que usamos pra fazer aquela requisicao, pra
+atualizar o profile, os dados que enviamos pra atualizar.
+
+podemos desestruturar o variables(com description e name)
+
+vms atualizar a informacao entao.
+-primeiro precisamos buscar a informacao que ja tem ali dentro
+
+hook - useQueryClient - getQueryData com a chave da query que queremos atualizar
+(tem que ser igual aquela queryKey da requisicao correspondente.)
+
+e entao, podemos dar um setQueryData pra atualizar.
+lembrando de colocar de novo a chave managed-restaurant, e o ...chached antes de
+colocar as variaveis novas, pois nao sao so essas variaveis que estamos trocando
+que existem na requisicao, tbm tem outras, como createdAt, etc.
+
+Podemos exportar a interface dessa requisicao la na pasta de api, e usar os
+generics <> pra tipar essas get e setQueryDatas pra facilitar.
+
+RESUMINDO, PODEMOS ATUALIZAR O CACHE, OS DADOS DA REQUSIICAO QUE JA FORAM RETORNANDOS ANTES,
+A PARTIR DO SUCESSO DE UMA REQUISICAO QUE VENHA DEPOIS DELA. ( E QUE SE REFERE A ELA)
+
+e assim fechamos a maioria das boas features que o react-query nos da
+----------------------------------------------------------------
