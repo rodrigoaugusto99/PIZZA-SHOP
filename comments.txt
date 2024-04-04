@@ -471,3 +471,40 @@ ternario padrao com skeleton (chimer)
 ) : (
   managedRestaurant?.name
 )}
+
+
+---------------------------------------------------
+MODAL DE ATUALIZACAO DE PERFIL (DIALOG)
+
+-Dialog por volta de tudo(do ui.dialog)(do shadcnui)
+pra poder ter contexto de dialog, ele eh um contextProvider do react
+
+dialog trigger por volta dos items do dropdown. 
+asChild pro DropdownMenuItem(primeiro componente abaixo)
+assuma as suas propriedades(abra o dialog)
+sem perder a estilizacao do dropdownmenuitem
+
+dentro do dialog, o conteudo do dialog, o componente <StoreProfileDialog />
+
+-no store-profile-dialog.tsx, o dialog, ha os botoes no footer.
+temos as variants padroes que ja vieram no shadcnui, mas nao temos a 
+de sucesso, meio verdinha, entao vms la no componente e criar na hora
+
+-labels e inputs, com htmlFor e ids correspondentes
+
+-temos que pegar os dados do restaurante DE NOVO, e ja que estamos usando
+useQuery, n precisamos passar de componente pra componente, podemos simplesmente
+fazer o useQuery de novo, com a mesma queryKey da outra vez. Dessa forma, a requisicao
+anterior eh reaproveitada.
+
+-vamos jogar esses dados do restaurante no form. 
+padrao, z.objets p validar com zod, z.infer pra tipar, 
+useForm com o register, 
+com o resolver pegando aquele schema que fizemos,
+com o values ao inves de defaultValues nos inputs.
+(values pq fica observando sempre, e como os componentes do radix(que sao
+usados pelo shadcnui) carregam as paradinhas do modal antes mesmo de aparecer,
+entao com o defaultValues acaba iniciando com os valores zerados pois foram preenchidos
+antes da requisicaos ser feita)
+(e ai as coisas sao preenchidas antes da requisicao ser completada)
+e os inputs com os {...register('xxx')}
