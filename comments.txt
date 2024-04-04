@@ -508,3 +508,22 @@ entao com o defaultValues acaba iniciando com os valores zerados pois foram pree
 antes da requisicaos ser feita)
 (e ai as coisas sao preenchidas antes da requisicao ser completada)
 e os inputs com os {...register('xxx')}
+
+
+--------------------------------------------
+
+atualizando o perfil de fato
+arquivo na api padrao
+
+useMutation chamando essa api que fizemos, mandando
+a "data" com os dados dos registers
+
+isSubmitting do useForm pra colocar no botao na prop disable.
+
+DialogClose pra fechar o modal
+
+o staleTime do react-query eh pra ficar atualizando informacoes
+que sao oobsoletas, como por exemplo, numero de pedidos do dia.
+ou seja, com o infinity, nao vai fazer esse carregamento nunca, pois
+o nome do restaurante nao vai ser atualizado com frequencia, e quando for,
+vai ser pelo modal, de forma manual do usuario.
