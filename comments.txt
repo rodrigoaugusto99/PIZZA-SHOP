@@ -637,3 +637,41 @@ onError(_, __, context) {
    - useNavigation 
    - replace true - pra ao inves de navegar, substituir a pagina(evitar nav back)
    
+   --------------------------------------------
+   LISTAGEM DE PEDIDOS
+
+-metodo na pasta api - dessa vez, com parametros p filtros e paginacao.
+-ver no backend o que essa rota recebe, vemos que tem 3 coisas opcionais
+e uma obrigatoria, que eh o pageIndex
+-interface sobre oq essa rota vai retornar pelo response.
+(quando eh get, a interface se refere ao generics do get, que eh la a tipagem
+do response)
+
+-vamos chamar essa rota com useQuery
+-eh recebido o result, e nao o orders, pois o orders vem junto com outro objetinho,
+entao pegamos result.orders
+-result.order && (se existir), e ai o mapa.
+-componente que vai ser exibido nesse mapa
+-la, interface pras props e colocar tudo dinamico ao inves de estatico, com os orders.xxx
+-esse order recebido pelas props do componente eh a order que veio la do useQuery com o result
+
+-pro status, como ha condicionais, vms fzr componente
+-type OrderStatus com todos os status possiveis
+-interface onde o status eh esse OrderStatus
+- orderStatusMap pra atribuir uma string pra cada chave(chave sendo cada item do e "enum")
+- no componente, temos o props que recebe a interface, e la no html com condicioanis,
+fazer todas as condicionais de acordo com as possiveis chaves (pending, delievered, etc),
+colocando o mapa com status entre colchetes, ou seja, vai exibir a string em portugues
+que fizemos de cada key (em ingles)
+
+
+
+
+
+
+
+
+
+
+
+
