@@ -628,3 +628,12 @@ onError(_, __, context) {
   })
 
   no updateProfile (api)
+
+  -----------------------------------------------
+
+  logout 
+   - metodo na pasta api chamando a rota
+   - useMutation no AccountMenu
+   - useNavigation 
+   - replace true - pra ao inves de navegar, substituir a pagina(evitar nav back)
+   
