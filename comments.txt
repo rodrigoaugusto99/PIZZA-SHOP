@@ -559,3 +559,72 @@ A PARTIR DO SUCESSO DE UMA REQUISICAO QUE VENHA DEPOIS DELA. ( E QUE SE REFERE A
 
 e assim fechamos a maioria das boas features que o react-query nos da
 ----------------------------------------------------------------
+
+INTERFACE OTIMISTA 
+em alguns casos, eh interessante mudar diretamente o cache mesmo antes da requisicao
+finalizar, pois eh algo que dificilmente daria errado e eh algo simples, diferentemente
+de uma transacao num banco, onde nao faz sentido atualizar o saldo do usuario depois
+de fazer o pagamento antes mesmo do pagamento ser concluido.
+
+algo simples como mudar o nome, eh difcil da erro, entao podemos atualizar a interface
+do usuario na hora que o usuario faz a alteracao, sem esperar que o negocio de certo.
+e se der errado, so voltar com os dados anterioresÇ
+
+-aquele onSuccess com a logica de alterar o cache, so era feito no caso de sucesso.
+-vms pegar toda a logica que tava la dentro e jogar em uma funcao separada.
+
+vms trocar o onSUcess pelo onMutate, que diferentemente do onsuccess, ja eh lida no momento
+em que o usuario clica no botao de salvar. 
+-nesse onMutate vms chamar aquela funcao que extraimos numa nova funcaozinha, a que estava
+no onSuccess anteriormente. 
+-agora, qnd usuario clica, automaticamente ja muda, e so depois aparece o toast de sucesso.
+
+-onMutate vamos jogar as variaveis no parametro. nao temos retorno (1o parametro)
+
+agora, quando a requuisicao da certo, o bagulho ja foi atualizado. boa experiencia do user.
+mas e se der erro? vai ter atualziado da mesma forma.
+
+entao depois do onMutate, vms fzr tbm o onError. n vms usar o retorno, entao colcoar um underline.
+n vms pegar as variaveis, entao vms colocar 2 underline. vms usar apenas o contexto.
+
+contexto sao informacoes q podemos compartilhar entre o c ontexto de uma mutacao
+ou query.
+
+entao, vms querer pegar o contexto, que no caso, na funcao de atualizacao, chamamos de
+'cache', que sao as informacoes no getQueryData antes de fazrmos as alteracoes.
+
+entao vamos retornar essa { cache } na funcao de atualizacao pra podermos ter acesso
+ao chamar essa funcao no onMutate
+
+onMutate({ description, name }) {
+      const { cached } = updateManagedRestaurantCache({ description, name })
+
+      return { previousProfile: cached }
+    },
+
+    agora, temos o cached no contexto da mutation, da query.
+  
+entao podemos ter acesso no onError, atraves do context.
+
+onError(_, __, context) {
+      if (context?.previousProfile) {
+        updateManagedRestaurantCache(context.previousProfile)
+      }
+    },
+
+    se tem contexto chamado previousProfile(que era cached e renomeamos pra previousProfile),
+    entao chamamos a funcao de atualizar o cache de novo, porem agr com os dados antigos
+
+    e o toast de success e error continua la intactos, pois sao chamados no handleUpdateProfile
+
+    - handleUpdateProfile, chama o upDateProfileFn(com useMutation), que no onMutate
+    chama o updateManageResuranteCache,. se der certo, tudo bem, se der erro, o onError
+    pega e refaz tudo.
+
+
+    pra testar dando erro, colocar:
+      await new Promise((resolve, reject) => {
+    setTimeout(reject, 3000)
+  })
+
+  no updateProfile (api)
