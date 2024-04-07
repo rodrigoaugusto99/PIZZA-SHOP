@@ -664,14 +664,66 @@ fazer todas as condicionais de acordo com as possiveis chaves (pending, deliever
 colocando o mapa com status entre colchetes, ou seja, vai exibir a string em portugues
 que fizemos de cada key (em ingles)
 
+-------------------------------------------------------
+PAGINACAO DOS PEDIDOS
 
+no get-orders da api, estamos com o pageIndex como 0, estatico. mas vamos receber essa
+informacao por parametro.
+-entao - interface, props com desestruturacao e uso do parametro recebido na funcao.
 
+agora, no orders, podemos chamar essa rota da api mandando o pageIndex por la.
 
+const { data: result } = useQuery({
+  queryKey: ['orders'],
+  queryFn: getOrders,
+})
 
+const { data: result } = useQuery({
+  queryKey: ['orders'],
+  queryFn: () => getOrders({ pageIndex }),
+})
 
+vamos armazenar esse valor aonde? no estado?  NAO!
+pois o usuario pode estar na pagina 8, e se ele der f5, vai voltar tudo.
+No recarregamento das paginas, o estado nao eh mantido. entao vamos armazenar
+na propria URL. (page=3)
+Assim, usuario pode ate enviar o link pra outra pessoa e essa pessoa abrir exatamente
+na mesma paginacacao.
 
+vamos pegar esse parametro com o useSearchParams do react-router-dom
+const [searchParams, setSearchParams] = useSearchParams()
 
+const pageIndex = z.coerce
+    .number()
+    .transform((page) => page - 1)
+    .parse(searchParams.get('page') ?? '1')
 
+veja, pegamos o searchParams chamado 'page'. ou seja, 
 
+o normal seria const pageIndex = searchParams.get('page') ?? '0'
+mas o zero eh usado programamalmente, o usuario espera que seja 1 a pagina 1
 
+entao por isso fizemos aquele coerce, 
 
+ou Seja, agora, toda a pagina na tela serah o 1, caso nao tenha o parametro na url,
+ou sera o valor do parametro da url. e nesses dois casos o valor real que usaremos 
+na pageIndex vai ser esse valor menos 1.
+
+-agora vamos fazer a paginacao funcionar nas setinhas embaixo, controlado pelo 
+proprio usuario
+interface - colocar onPageChange, que recebe o valor atual da pagina
+props - botar na desestruturacao
+componente - estilizar os botoes de acordo com o valor atual da pagina.
+(onClick pra mudar o valor e disabled)
+
+sobre o fluxozin, eu coloquei no Pagination que vai ter uma propriedade chamada onPageChange,
+e essa propriedade, la no componente, vai ser chamada num click de qualquer um dos 4 botoes.
+quando qlqr onPageChanged de qlqr um botaozinho eh chamado, entao eh chamado o handlePaginate
+mandando por parametro um number, que eh calculado la no pagination de acordo com o pageIndex
+atual, ou se for um botao da ultima pagina, usa-se o valor total de pages, e se for pra ir
+pra primeira pagina, nao usa o pageIndex, apenas manda o valor 0 para la no orders, 
+no handlePaginate, o parametro mudar para esse novo valor.
+
+porem, ao dar onPageChanged, a url muda mas a pagina nao, pois o queryKey do useQuery
+eh o mesmo, entao a requisicao nao eh refeita. entao, temos que colocar na queryKey 
+tambem o valor pageIndex, pois a query depende desse parametro.
