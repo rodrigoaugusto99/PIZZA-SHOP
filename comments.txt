@@ -727,3 +727,52 @@ no handlePaginate, o parametro mudar para esse novo valor.
 porem, ao dar onPageChanged, a url muda mas a pagina nao, pois o queryKey do useQuery
 eh o mesmo, entao a requisicao nao eh refeita. entao, temos que colocar na queryKey 
 tambem o valor pageIndex, pois a query depende desse parametro.
+
+--------------------------------------------------------
+vamos fazer  o sistema de Filtros
+
+-z.object c schema, type infer, userForm com resolver com schema, register e handlesubmit
+
+z.oject pra validacao
+z.infer pra tipagem
+useForm com a tipagem do schema
+zodResolver com o schema
+register e handlesubmit do useForm, 
+colocar nos inputs os registers e handleSubmit no form
+
+o select eh um input do radix que nao renderiza um select nativo do html
+entao pra usarmos o {...register}, temos que envolve-lo com um Controller
+
+agora, quando alterar a info do select, vai chamar o onValueChange, que vai chamar O
+onChange, que vai alterar as informacoes no formulario
+
+
+-agora vms armazenar os filtros na url tbm
+
+useSearchParams
+searchParams.get em cada input
+defaultValues ja c om esses valores, caso tenha algo achado na url
+
+funcao handleFilter com as props
+pega cada valor, se tiver por exemplo filtrarmos pelo id, setamos.
+se setamos outra coisa, mas o id deixamos "parado" entao removemos o id do filtro.
+entendedo melhor essa parte, estamos fazendo com que, se o filtro ainda estiver 
+marcado  no select ou escrito no input, o filtro continua no la no params da url
+pra fazer parte da filtragem. e se apagarmos o filtro por nome, por exemplo, tirando
+o nome do input, se nao tivesse essa verificacao, o nome continuaria na url. mas ja que
+tem essa verificacao de ver se tem custumerName, entao ele ve que nao ta no input e tira do
+da url, pra realmente tirar do filtro.
+
+
+-no order, obviamente tbbm temos acesso a url, eh como se fosse um estad oglobal,
+entao, podemos pegar o useSearchParams e dar o get em cada variavel, 
+pra jogar no useQuery com o getOrders, que eh aquela funcao que chama a api.
+entao estamos agora pegando os params p mandar p requisicao tbm
+(tmb colocar na queryKey.)
+
+na chamada la da api, vms falar tbm que podemos recebber essas outras informacoes
+-interface, props, e parametros no metodo api.get
+
+porque a pagina eh atualiozada? pq a url mudou ou pq o useQuery depende de todas
+aquelas variaveis, e limpamos tudo, quer dizer que alterou tudo, entao a useQuery
+faz a requisica od enovo>?
