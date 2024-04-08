@@ -776,3 +776,29 @@ na chamada la da api, vms falar tbm que podemos recebber essas outras informacoe
 porque a pagina eh atualiozada? pq a url mudou ou pq o useQuery depende de todas
 aquelas variaveis, e limpamos tudo, quer dizer que alterou tudo, entao a useQuery
 faz a requisica od enovo>?
+
+----------------------------------------------------
+
+DETALHES DE PEDIDOS
+-manda id do pedido pro order-details (props)
+-OrderDetails com o useQuery ,chama a o getOrderDetails com a  rota da api,
+-nesse arquivo da pasta api, fazer a interface do response, pra isso,
+copiar o tipo de return dessa rota la no backend
+
+porem todos os pedidos da pagina sao carregados, pois o componente de modal
+do radix carrega as parada antes mesmo de abrir o modal, entao, no order-table-rows,
+vamos mudar o componente CONTROLLED, que controlamos o estado(abre e fecha) com o estado.
+entao, com esse estado que reflete com a abbertura e fechamento desse dialog...
+no order-details, vamos receber o props o bool open tambem.
+vamos pegar esse bool e colocar no "enable" do useQuery, que agora eh uma flag para
+essa query ser chamada ou nao. ou seja,  so vai carregar o valor daquele modal de order
+details, caso esse mesmo modal seja open = true
+
+lembrando que criamos o estado la no ordertable, pois eh de la que vamos cchamar o modal.
+inicialmente colocamos o isDetailOpen como false, apenas setando como true quando demos o click
+(open e atualizando o estado com onOpenChange, chamando o set do useState)
+
+agora, tbm podemos colocar os valores das informacoes em cada um desses pedidos.
+como no order-details, recebemos a "order" do response da requisicao que foi feita atraves 
+do orderId, entao podemos preencher tudo
+
