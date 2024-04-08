@@ -802,3 +802,24 @@ agora, tbm podemos colocar os valores das informacoes em cada um desses pedidos.
 como no order-details, recebemos a "order" do response da requisicao que foi feita atraves 
 do orderId, entao podemos preencher tudo
 
+----------------------------------------------------------------  
+CANCELAR PEDIDOS
+
+api/cancel-order.ts
+
+interface com o orderId
+props
+patch com orderId na url
+
+no row, que eh onde tem o botao p cancelar, fzr o useMutation com 
+o mutateAsync p colocar la no botao e o fn com o metodo la na ./api
+
+quando clicamos no negocio, ele fica canceled, e ai a parada tem que ser atualizada,
+pois conbfikguramos que se for canceled, o botao fica desabilitado, pois ele entraria
+naquela logica do .includes. 
+-pra isso, vms fzr o lance da mudanca de cache. sem interface otimista dessa vez,
+ou seja, dps do onSuccess.
+
+o a logica no onSuccess - percorre todas as listas de pedidos que tenho carregadas,
+(que estao no cache) seja filtradas, paginadas, e quando encontrar o pedido com o mesmo id com
+o pedido que acabou de cancelar, entao troca o status desse pedido.
