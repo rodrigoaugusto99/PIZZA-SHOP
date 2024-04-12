@@ -823,3 +823,41 @@ ou seja, dps do onSuccess.
 o a logica no onSuccess - percorre todas as listas de pedidos que tenho carregadas,
 (que estao no cache) seja filtradas, paginadas, e quando encontrar o pedido com o mesmo id com
 o pedido que acabou de cancelar, entao troca o status desse pedido.
+
+---------------------------------------------------------------------
+
+OPERACOES NO STATUS DE PEDIDOS
+
+Função de mudar status extraida
+
+Em cada mudation será chamada essa função, cada uma com uma string diferente por 
+parâmetro, que se refere ao ato do clique naquele botão. Se for botão de cancelar, 
+a string é cancelar
+
+Criar em /api todas as rotas, além dessa de canceled.
+
+Criar mais useMutations p cada ato
+
+Cada usemutationzinha tem seu mutateSync com nome próprio(q vai ser 
+chamada pelo clique do usuario) (handle), com o mutationFn próprio, 
+chamando a .api correspondente, e a string correspondente no parâmetro 
+da função extraída de lidar com mudanças do cache pro status
+
+Dps, fazer cada botão usando ifs, cada um condicionados ao order.status, 
+e colocando o texto do botão correspondente
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
