@@ -846,16 +846,24 @@ da função extraída de lidar com mudanças do cache pro status
 Dps, fazer cada botão usando ifs, cada um condicionados ao order.status, 
 e colocando o texto do botão correspondente
 
+---------------------------------------------
+
+LOGOUT AUTOMATICO
 
 
+Nosso frontend nao tem acesso aos cookies, ate por motivos de segurança.
 
+Então temos o erro de poder entrar nas rotas de APP sem estar autenticado
 
+No layout de APP, lá está envolvendo todas as rotas autenticadas.
+Então vms fzr lógica de navegar pras páginas de autentixacao
 
+Estamos fznd a navegação dentro do componente pq o reactrouterdom,
+ o useNavigate dele tem que ser dentro. Então o layout eh o melhor  lugarzin
 
-
-
-
-
+no useEffect, se estamos criando um listener, temos que limpar o listener
+no final, pois caso seja desmontado, caso usuario va manualmente p pagina de login, 
+limpe os eventListeners
 
 
 
